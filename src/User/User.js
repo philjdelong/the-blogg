@@ -1,10 +1,10 @@
 import './User.css'
 
-function User(props) {
+const User = (props) => {
     return(
         <div>
-            <h1 className="title">{props.name}, {props.age}</h1>
-            <p className="User">I <code className="feeling">{props.feeling}</code> React!</p>
+            <h2 className="User">{props.name}, {props.age}</h2>
+            <p className="text">I <code className="feeling">{props.feeling}</code> React!</p>
             <p>{props.children}</p>
         </div>
     ) 
