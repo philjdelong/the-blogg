@@ -1,22 +1,16 @@
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import User from './User/User.js'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hi, I'm <code className="p-text">Phil</code> and I like React.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <User name="Capo DeLong" age="7" feeling="Love">I really like turtles.</User>
+      <User name="Brick Tomlinson" age="61" feeling="Throughly Enjoy">I love lamp.</User>
       </header>
     </div>
   );
