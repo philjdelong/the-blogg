@@ -6,11 +6,9 @@ import Title from './Title/Title.js';
 class App extends Component {
   state = {
     posts: [
-      {title: "First Post", tag: "general"},
-      {title: "Capo and Sampson", tag: "about"},
-      {title: "Hobbies", tag: "about"},
+      {_id: 1, title: "First Post", tag: "general", body: "Here we have some content"},
+      {_id: 2, title: "Capo", tag: "Dog", body: "Different post. More content."},
     ],
-    username: '',
     showPosts: false,
   };
   
@@ -28,50 +26,47 @@ class App extends Component {
     }
   };
   
-  tagChanger = (event) => {
-    this.setState({     
-      posts: [
-        {title: "Title", tag: "general"},
-        {title: "Teddles", tag: event.target.value},
-        {title: "Hobbies", tag: "about"},
-      ]
-    });
-  };
+  bodyUpdater = ( event, index ) => {
+    const posts = [...this.state.posts]
+    const post = posts[index]
+    post.body = event.target.value
+    this.setState({posts: posts})
+  }
 
-  inputUsername = (event) => {
-    this.setState({
-      username: event.target.value
-    });
-
-  };
+  deletePostHandler = (postIndex) => {
+    const posts = [...this.state.posts];
+    posts.splice(postIndex, 1);
+    this.setState({posts: posts})
+    console.log("Post Deleted")
+  }
   
   render() {
+    let posts = null
+
+    if (this.state.showPosts) {
+      posts = (
+        <div>
+          {
+            this.state.posts.map((post, index) => {
+              return <Post 
+                tag={post.tag}
+                title={post.title}
+                body={post.body}
+                deletePost={() => this.deletePostHandler(index)}
+                key={post._id}
+                updateBody={(event) => this.bodyUpdater(event, index)} />
+            })
+          }
+        </div>
+      );
+    };
+
     return (
       <div className="App">
         <header className="App-header">
           <Title />
-          {/* arrow function for button >> use .bind() to avoid 'over-rendering' */}
-          <button onClick={() => this.postChanger()}>Toggle Posts</button>
-          { this.state.showPosts ? 
-            <div className="posts">
-              <Post 
-                title={this.state.posts[0].title} 
-                tag={this.state.posts[0].tag}>
-                  Here's my first post on the BLOGG
-              </Post>
-              <Post 
-                title={this.state.posts[1].title} 
-                tag={this.state.posts[1].tag}
-                changer={this.tagChanger}>
-                  I love my animals!
-              </Post>
-              <Post 
-                title={this.state.posts[2].title} 
-                tag={this.state.posts[2].tag}>
-                  I enjoy Coding, Hiking, and Spending time with the family.
-              </Post>
-            </div> : null
-          }
+          <button onClick={this.postChanger}>Toggle Posts</button>
+          {posts}
         </header>
       </div>
     );
