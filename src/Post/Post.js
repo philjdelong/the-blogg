@@ -2,10 +2,11 @@ import './Post.css'
 
 const Post = (props) => {
     return(
-        <div className="Post" >
-            <h2 onClick={props.click}>{props.title} <code className="tag">({props.tag})</code></h2>
-            <p className="text">{props.children}</p>
-            <input className="input" onChange={props.changer}></input>
+        <div className="post" >
+            <h2>{props.title} <code className="tag">({props.tag})</code></h2>
+            <p className="text">{props.body}</p>
+            <input className="input" onChange={props.updateBody}/>
+            <p onClick={props.deletePost}>Delete</p>
         </div>
     ) 
 };
