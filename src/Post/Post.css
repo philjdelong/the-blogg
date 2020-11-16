@@ -1,5 +1,9 @@
 .Post {
     color: peachpuff;
+    background-color: rgb(30, 60, 90);
+    border: 1px solid #eee;
+    margin: 5%;
+    box-shadow: 4px 4px 2px #ccc;
 }
 
 .text {
@@ -10,4 +14,8 @@
     font-size: 20px;
     font-style: italic;
     color: powderblue;
+}
+
+.input {
+    margin: 2%
 }

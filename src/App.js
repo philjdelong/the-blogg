@@ -9,18 +9,40 @@ class App extends Component {
       {title: "First Post", tag: "general"},
       {title: "Capo and Sampson", tag: "about"},
       {title: "Hobbies", tag: "about"},
-    ]
+    ],
+    username: '',
+    showPosts: false,
   };
   
   postChanger = () => {
+    if (!this.state.showPosts) {
+      this.setState({     
+        showPosts: true
+      });
+      console.log("Show me the posts!");
+    } else {
+      this.setState({     
+        showPosts: false
+      });
+      console.log("Hide the posts!");
+    }
+  };
+  
+  tagChanger = (event) => {
     this.setState({     
       posts: [
-        {title: "New Title", tag: "general"},
-        {title: "Teddles", tag: "RIP"},
+        {title: "Title", tag: "general"},
+        {title: "Teddles", tag: event.target.value},
         {title: "Hobbies", tag: "about"},
       ]
     });
-    console.log("Click happens!");
+  };
+
+  inputUsername = (event) => {
+    this.setState({
+      username: event.target.value
+    });
+
   };
   
   render() {
@@ -28,10 +50,28 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <Title />
-          <button onClick={this.postChanger}>Update Post</button>
-          <Post title={this.state.posts[0].title} tag={this.state.posts[0].tag}>Here's my first post on the BLOGG</Post>
-          <Post title={this.state.posts[1].title} tag={this.state.posts[1].tag}>I love my animals!</Post>
-          <Post title={this.state.posts[2].title} tag={this.state.posts[2].tag}>I enjoy Coding, Hiking, and Spending time with the family.</Post>
+          {/* arrow function for button >> use .bind() to avoid 'over-rendering' */}
+          <button onClick={() => this.postChanger()}>Toggle Posts</button>
+          { this.state.showPosts ? 
+            <div className="posts">
+              <Post 
+                title={this.state.posts[0].title} 
+                tag={this.state.posts[0].tag}>
+                  Here's my first post on the BLOGG
+              </Post>
+              <Post 
+                title={this.state.posts[1].title} 
+                tag={this.state.posts[1].tag}
+                changer={this.tagChanger}>
+                  I love my animals!
+              </Post>
+              <Post 
+                title={this.state.posts[2].title} 
+                tag={this.state.posts[2].tag}>
+                  I enjoy Coding, Hiking, and Spending time with the family.
+              </Post>
+            </div> : null
+          }
         </header>
       </div>
     );
